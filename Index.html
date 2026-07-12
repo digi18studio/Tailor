@@ -504,11 +504,159 @@
     }
 
     .welcome-card.ladies .wc-bg {
-      background-image: linear-gradient(160deg, rgba(236, 72, 153, 0.25), rgba(253, 242, 248, 0.5)), url('https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&w=600&q=80');
+      background-image: linear-gradient(160deg, rgba(236, 72, 153, 0.25), rgba(253, 242, 248, 0.5)), url('images/Ladies/saksham-gangwar-wWiEThMgY94-unsplash.jpg');
     }
 
     .welcome-card.gents .wc-bg {
-      background-image: linear-gradient(160deg, rgba(30, 58, 138, 0.3), rgba(239, 246, 255, 0.5)), url('https://images.unsplash.com/photo-1617137968427-85924c800a22?auto=format&fit=crop&w=600&q=80');
+      background-image: linear-gradient(160deg, rgba(30, 58, 138, 0.3), rgba(239, 246, 255, 0.5)), url('images/Gents/Suit/mohamad-khosravi-LXzZQuT467s-unsplash.jpg');
+    }
+
+    /* ============ FULLSCREEN LIGHTBOX ============ */
+    .lightbox-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(11, 15, 26, 0.95);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      z-index: 99999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.4s ease, visibility 0.4s ease;
+    }
+
+    .lightbox-modal.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: 24px;
+      right: 24px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: white;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 20px;
+      transition: all 0.3s;
+      z-index: 10;
+    }
+
+    .lightbox-close:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: scale(1.05);
+    }
+
+    .lightbox-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: white;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 20px;
+      transition: all 0.3s;
+      z-index: 5;
+    }
+
+    .lightbox-nav:hover {
+      background: rgba(255, 255, 255, 0.25);
+      border-color: rgba(255, 255, 255, 0.4);
+    }
+
+    .lightbox-prev {
+      left: 24px;
+    }
+
+    .lightbox-next {
+      right: 24px;
+    }
+
+    .lightbox-content {
+      max-width: 90%;
+      max-height: 80%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      user-select: none;
+    }
+
+    .lightbox-content img {
+      max-width: 100%;
+      max-height: 80vh;
+      object-fit: contain;
+      border-radius: 8px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+      transform: scale(0.95);
+      transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .lightbox-modal.active .lightbox-content img {
+      transform: scale(1);
+    }
+
+    .lightbox-dots {
+      position: absolute;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 10px;
+      z-index: 5;
+    }
+
+    .lightbox-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.3);
+      border: none;
+      padding: 0;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .lightbox-dot.active {
+      background: white;
+      transform: scale(1.3);
+    }
+
+    @media (max-width: 768px) {
+      .lightbox-nav {
+        width: 44px;
+        height: 44px;
+        font-size: 16px;
+      }
+      .lightbox-prev {
+        left: 12px;
+      }
+      .lightbox-next {
+        right: 12px;
+      }
+      .lightbox-close {
+        top: 16px;
+        right: 16px;
+        width: 40px;
+        height: 40px;
+        font-size: 16px;
+      }
     }
 
     .wc-overlay {
@@ -3342,8 +3490,8 @@
     }
 
     .shop-badge.ladies {
-      background: var(--accent-soft);
-      color: var(--accent-2);
+      background: #FCE7F3;
+      color: #DB2777;
     }
 
     .shop-badge.gents {
@@ -3871,7 +4019,7 @@
           <!-- Ladies Shop Masters -->
           <div class="about-team-card">
             <div class="about-team-photo">
-              <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=400&q=80"
+              <img src="images/Masters/Mr. Suresh Seth.jpg"
                 alt="Mr. Suresh Seth">
             </div>
             <span class="shop-badge ladies">Ladies Shop</span>
@@ -3886,7 +4034,7 @@
 
           <div class="about-team-card">
             <div class="about-team-photo">
-              <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=400&q=80"
+              <img src="images/Masters/Kirtesh Seth.jpg"
                 alt="Kirtesh Seth">
             </div>
             <span class="shop-badge ladies">Ladies Shop</span>
@@ -3903,7 +4051,7 @@
           <!-- Gents Shop Masters -->
           <div class="about-team-card">
             <div class="about-team-photo">
-              <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80"
+              <img src="images/Masters/Mr. Mahaveer Seth.jpeg"
                 alt="Mr. Mahaveer Seth">
             </div>
             <span class="shop-badge gents">Gents Shop</span>
@@ -3918,7 +4066,7 @@
 
           <div class="about-team-card">
             <div class="about-team-photo">
-              <img src="https://images.unsplash.com/photo-1628157582853-a796fa650a6a?auto=format&fit=crop&w=400&q=80"
+              <img src="images/Masters/Yash Seth.png"
                 alt="Yash Seth">
             </div>
             <span class="shop-badge gents">Gents Shop</span>
@@ -4217,145 +4365,34 @@
   <!-- ============ TOAST ============ -->
   <div class="toast-container" id="toastContainer"></div>
 
+  <!-- ============ FULLSCREEN LIGHTBOX ============ -->
+  <div class="lightbox-modal" id="lightboxModal">
+    <button class="lightbox-close" onclick="closeLightbox()" aria-label="Close lightbox">
+      <i class="fas fa-times"></i>
+    </button>
+    <button class="lightbox-nav lightbox-prev" onclick="changeLightboxImage(-1)" aria-label="Previous image">
+      <i class="fas fa-chevron-left"></i>
+    </button>
+    <div class="lightbox-content">
+      <img id="lightboxImg" src="" alt="Fullscreen view">
+    </div>
+    <button class="lightbox-nav lightbox-next" onclick="changeLightboxImage(1)" aria-label="Next image">
+      <i class="fas fa-chevron-right"></i>
+    </button>
+    <div class="lightbox-dots" id="lightboxDots"></div>
+  </div>
+
+  <script src="productsData.js"></script>
   <script>
     // ============ DATA ============
-    const productsData = {
-      ladies: {
-        hero: {
-          eyebrow: 'Ladies Collection · 2026',
-          title: 'New Latest <em>Tailors</em>',
-          desc: 'Beautiful custom outfits tailored for you. From hand-embroidered blouses to designer lehengas, each piece is made to your exact measurements with the beauty of traditional Indian stitching.'
-        },
-        categories: [
-          { id: 'all', name: 'All', icon: 'fa-border-all' },
-          { id: 'blouse', name: 'Blouse', icon: 'fa-vest' },
-          { id: 'lehenga', name: 'Lehenga', icon: 'fa-person-dress' },
-          { id: 'kurtis', name: 'Kurtis', icon: 'fa-shirt' },
-          { id: 'suit', name: 'Suit', icon: 'fa-user-tie' },
-          { id: 'anarkali', name: 'Anarkali', icon: 'fa-person-dress' },
-          { id: 'gown', name: 'Gown', icon: 'fa-person-dress' },
-          { id: 'frock', name: 'Frock', icon: 'fa-child-reaching' }
-        ],
-        products: {
-          blouse: [
-            { id: 'l-blouse-1', name: 'Princess Cut Blouse', subtitle: 'Seamless fit curved design', price: 1800, work: 'Seamless Piping', fabric: 'Silk / Brocade', desc: 'The Princess Cut Blouse features seamless curved stitching on the front without any visible seams, providing a perfect, smooth, and flattering shape.', images: ['images/princess_cut_blouse.png'] },
-            { id: 'l-blouse-2', name: 'Round / Square Neck Blouse', subtitle: 'Classic simple traditional style', price: 1200, work: 'Classic Border / Piping', fabric: 'Cotton / Silk', desc: 'The Round or Square Neck Blouse is a simple and classic design. It pairs beautifully with all kinds of sarees and is perfect for both daily wear and weddings.', images: ['images/round_square_blouse.png'] },
-            { id: 'l-blouse-3', name: 'V-Neck Blouse', subtitle: 'Trending v-neck style', price: 1500, work: 'Zari / Lace Trim', fabric: 'Banarasi / Satin', desc: 'The V-Neck Blouse is a highly trendy design that beautifully elongates the neckline, creating a glamorous yet elegant look.', images: ['images/v_neck_blouse.png'] },
-            { id: 'l-blouse-4', name: 'Boat Neck Blouse', subtitle: 'Wide neck elegant look', price: 1600, work: 'Thread Work / Piping', fabric: 'Georgette / Raw Silk', desc: 'The Boat Neck Blouse features a wide and flat neckline near the collarbone. It is the best choice for achieving an elegant, smart, and formal look.', images: ['images/boat_neck_blouse.png'] },
-            { id: 'l-blouse-5', name: 'Collar Neck / High Neck', subtitle: 'Royal high collar design', price: 2000, work: 'Chinese Collar', fabric: 'Cotton / Linen / Brocade', desc: 'The Collar Neck / High Neck Blouse features a formal shirt style or Chinese collar. It offers a royal look that is perfect for cotton sarees and winter weddings.', images: ['images/collar_neck_blouse.png'] },
-            { id: 'l-blouse-6', name: 'Off-Shoulder / Cold-Shoulder', subtitle: 'Modern dropped shoulder cut', price: 2200, work: 'Cold-shoulder Cut', fabric: 'Velvet / Georgette', desc: 'For a modern and bold appearance, the Off-Shoulder or Cold-Shoulder blouse is absolutely perfect, featuring dropped shoulders or stylish sleeve cuts.', images: ['images/off_shoulder_blouse.png'] },
-            { id: 'l-blouse-7', name: 'Backless Blouse', subtitle: 'Glamorous dori & strap style', price: 2500, work: 'Dori / Tassels', fabric: 'Satin / Silk', desc: 'The Backless Blouse features an open-back design with delicate doris, designer tassels, or thin straps. This style is highly popular for party wear sarees.', images: ['images/backless_blouse.png'] },
-            { id: 'l-blouse-8', name: 'Padded Blouse', subtitle: 'Concealed cups for perfect shape', price: 1800, work: 'Concealed Padding', fabric: 'Any Fabric', desc: 'The Padded Blouse features high-quality concealed cups to provide a structured shape without the need for innerwear, making it highly useful for backless blouses.', images: ['images/padded_blouse.png'] }
-          ],
-          lehenga: [
-            { id: 'l-leh-1', name: 'Bridal Vermilion', subtitle: 'Zardozi embroidered bridal lehenga', price: 48000, work: 'Zardozi & Dabka', fabric: 'Raw Silk & Velvet', desc: 'A statement bridal lehenga in deep vermilion with intricate zardozi and dabka hand embroidery. Includes heavily worked blouse and matching dupatta. Made to order over 8 weeks.', images: ['images/bridal_vermilion_lehenga.png'] },
-            { id: 'l-leh-2', name: 'Pastel Dawn', subtitle: 'Mirror work pastel lehenga', price: 22000, work: 'Mirror & Thread', fabric: 'Georgette & Organza', desc: 'Soft pastel lehenga with delicate mirror work and thread embroidery. Layered organza dupatta with pearl detailing. For engagements and mehendi ceremonies.', images: ['images/pastel_dawn_lehenga.png'] },
-            { id: 'l-leh-3', name: 'Velvet Royale', subtitle: 'Velvet lehenga with gold work', price: 34000, work: 'Aari & Resham', fabric: 'Premium Velvet', desc: 'Rich velvet lehenga in royal maroon with gold aari embroidery. Paired with contrasting silk blouse and net dupatta. Winter wedding ready.', images: ['images/velvet_royale_lehenga.png'] },
-            { id: 'l-leh-4', name: 'Cape Contemporary', subtitle: 'Cape-style modern lehenga', price: 18500, work: 'Machine & Hand', fabric: 'Crepe & Net', desc: 'Contemporary lehenga set with attached cape instead of dupatta. Minimalist thread work with crystal accents. For the modern bride who wants to dance freely.', images: ['images/cape_contemporary_lehenga.png'] }
-          ],
-          kurtis: [
-            { id: 'l-kurti-1', name: 'A-Line Angrakha', subtitle: 'Angrakha style cotton kurti', price: 1800, work: 'Block Print & Thread', fabric: 'Pure Cotton', desc: 'Traditional angrakha-style kurti with side tie and block print. Comfortable cotton for everyday wear. Pairs beautifully with leggings or palazzo.', images: ['ladies-kurti-1a', 'ladies-kurti-1b', 'ladies-kurti-1c'] },
-            { id: 'l-kurti-2', name: 'High-Low Modern', subtitle: 'High-low hem embroidered kurti', price: 2400, work: 'Machine Embroidery', fabric: 'Rayon', desc: 'Modern high-low kurti with yoke embroidery and side slits. Soft rayon fabric with flattering silhouette. Office and daily wear ready.', images: ['ladies-kurti-2a', 'ladies-kurti-2b', 'ladies-kurti-2c'] },
-            { id: 'l-kurti-3', name: 'Silk Straight Classic', subtitle: 'Straight silk kurti with dupatta', price: 3800, work: 'Hand Block Print', fabric: 'Tussar Silk', desc: 'Elegant straight-cut Tussar silk kurti with hand block print. Comes with matching dupatta. Festive yet minimal for cultural gatherings.', images: ['ladies-kurti-3a', 'ladies-kurti-3b', 'ladies-kurti-3c'] },
-            { id: 'l-kurti-4', name: 'Front Slit Festive', subtitle: 'Front slit embroidered kurti', price: 2900, work: 'Resham & Mirror', fabric: 'Cotton Silk', desc: 'Festive front-slit kurti with resham and mirror embroidery on yoke. Side slits for ease of movement. Perfect for celebrations.', images: ['ladies-kurti-4a', 'ladies-kurti-4b', 'ladies-kurti-4c'] }
-          ],
-          suit: [
-            { id: 'l-suit-1', name: 'Palazzo Bloom Set', subtitle: 'Embroidered palazzo suit set', price: 5400, work: 'Thread & Mirror', fabric: 'Rayon & Cotton', desc: 'Contemporary palazzo suit with intricate thread and mirror work on yoke. Wide-leg palazzo and printed dupatta. Comfort meets style.', images: ['ladies-suit-1a', 'ladies-suit-1b', 'ladies-suit-1c'] },
-            { id: 'l-suit-2', name: 'Pakistani Pearl', subtitle: 'Straight-cut Pakistani suit', price: 6500, work: 'Resham & Pearl', fabric: 'Cambric Cotton', desc: 'Elegant Pakistani-style straight suit with subtle resham and pearl detailing. Comes with printed dupatta and matching bottom. Refined everyday wear.', images: ['ladies-suit-2a', 'ladies-suit-2b', 'ladies-suit-2c'] },
-            { id: 'l-suit-3', name: 'Sharara Festive', subtitle: 'Embroidered sharara set', price: 9200, work: 'Zari & Patch Work', fabric: 'Silk Chanderi', desc: 'Festive sharara set with heavily embroidered kurti and flared sharara pants. Paired with net dupatta. Statement piece for Eid and celebrations.', images: ['ladies-suit-3a', 'ladies-suit-3b', 'ladies-suit-3c'] },
-            { id: 'l-suit-4', name: 'Garara Heritage', subtitle: 'Traditional garara with dupatta', price: 11500, work: 'Zardozi Hand Work', fabric: 'Brocade Silk', desc: 'Heritage garara set with intricately worked kurti and flared pants. Matching dupatta with scalloped edges. Wedding-ready couture.', images: ['ladies-suit-4a', 'ladies-suit-4b', 'ladies-suit-4c'] }
-          ],
-          anarkali: [
-            { id: 'l-anar-1', name: 'Mughal Floor Length', subtitle: 'Floor-length anarkali with dupatta', price: 7800, work: 'Chikankari & Resham', fabric: 'Georgette', desc: 'Flowing floor-length anarkali in soft georgette with delicate chikankari embroidery. Paired with churidar and matching dupatta. Timeless elegance.', images: ['ladies-anarkali-1a', 'ladies-anarkali-1b', 'ladies-anarkali-1c', 'ladies-anarkali-1d'] },
-            { id: 'l-anar-2', name: 'Cape Style Anarkali', subtitle: 'Cape-attached contemporary anarkali', price: 8900, work: 'Resham & Crystal', fabric: 'Crepe & Net', desc: 'Contemporary anarkali with attached cape sleeves. Crystal-encrusted waist and subtle thread embroidery. For receptions and evening events.', images: ['ladies-anarkali-2a', 'ladies-anarkali-2b', 'ladies-anarkali-2c'] },
-            { id: 'l-anar-3', name: 'Layered Pastel', subtitle: 'Layered pastel anarkali set', price: 6500, work: 'Thread & Pearl', fabric: 'Organza', desc: 'Dreamy layered anarkali in soft pastel organza. Pearl detailing on yoke and scalloped hem. Includes dupatta. Perfect for daytime functions.', images: ['ladies-anarkali-3a', 'ladies-anarkali-3b', 'ladies-anarkali-3c'] },
-            { id: 'l-anar-4', name: 'Velvet Wedding', subtitle: 'Velvet embroidered wedding anarkali', price: 14500, work: 'Zardozi & Dabka', fabric: 'Premium Velvet', desc: 'Rich velvet anarkali with heavy zardozi embroidery on bodice and hem. Paired with net dupatta. Winter wedding statement piece.', images: ['ladies-anarkali-4a', 'ladies-anarkali-4b', 'ladies-anarkali-4c'] }
-          ],
-          gown: [
-            { id: 'l-gown-1', name: 'Midnight Sequin', subtitle: 'Floor-length sequin evening gown', price: 14500, work: 'Sequin & Bead', fabric: 'Stretch Net', desc: 'Statement floor-length gown in midnight blue with all-over sequin work. Cowl neckline and thigh-high slit. For cocktail evenings and black-tie events.', images: ['ladies-gown-1a', 'ladies-gown-1b', 'ladies-gown-1c'] },
-            { id: 'l-gown-2', name: 'Cape Symphony', subtitle: 'Cape-sleeve embroidered gown', price: 11200, work: 'Resham & Crystal', fabric: 'Crepe & Organza', desc: 'Elegant gown with attached cape sleeves. Crystal-encrusted waist and subtle thread embroidery. Floor-skimming silhouette for receptions and galas.', images: ['ladies-gown-2a', 'ladies-gown-2b', 'ladies-gown-2c'] },
-            { id: 'l-gown-3', name: 'Off-Shoulder Rose', subtitle: 'Off-shoulder ruffled gown', price: 8900, work: 'Ruffle & Pleat', fabric: 'Satin', desc: 'Romantic off-shoulder gown with cascading ruffles. Soft rose pink shade with cinched waist. For engagement photoshoots and evening soirees.', images: ['ladies-gown-3a', 'ladies-gown-3b', 'ladies-gown-3c'] },
-            { id: 'l-gown-4', name: 'Draped Emerald', subtitle: 'Draped silhouette evening gown', price: 12800, work: 'Hand Draping', fabric: 'Jersey', desc: 'Sophisticated draped gown in deep emerald. One-shoulder detail with gathered waist. Stretchy jersey for comfort. Black-tie ready couture.', images: ['ladies-gown-4a', 'ladies-gown-4b', 'ladies-gown-4c'] }
-          ],
-          frock: [
-            { id: 'l-frock-1', name: 'Tiered Festive Frock', subtitle: 'Tiered embroidered frock', price: 4200, work: 'Thread & Mirror', fabric: 'Cotton Voile', desc: 'Playful tiered frock with mirror and thread embroidery. Flattering empire waist. Comfortable for festive daytime events and cultural programs.', images: ['ladies-frock-1a', 'ladies-frock-1b', 'ladies-frock-1c'] },
-            { id: 'l-frock-2', name: 'Floral Summer Frock', subtitle: 'Floral print summer frock', price: 2400, work: 'Digital Print', fabric: 'Cotton', desc: 'Lightweight floral print frock for summer. Button-down front with tie waist. Breezy silhouette for brunches and day outings.', images: ['ladies-frock-2a', 'ladies-frock-2b', 'ladies-frock-2c'] },
-            { id: 'l-frock-3', name: 'Smocked Party Frock', subtitle: 'Smocked party wear frock', price: 3800, work: 'Smock & Embroidery', fabric: 'Polyester Crepe', desc: 'Smocked bodice party frock with flared skirt. Subtle embroidery on hem. Perfect for birthday celebrations and evening parties.', images: ['ladies-frock-3a', 'ladies-frock-3b', 'ladies-frock-3c'] },
-            { id: 'l-frock-4', name: 'Pinafore Heritage', subtitle: 'Pinafore style heritage frock', price: 3200, work: 'Hand Block Print', fabric: 'Linen', desc: 'Heritage pinafore-style frock with hand block print. Layered look with buttons. Comfortable linen for everyday elegance.', images: ['ladies-frock-4a', 'ladies-frock-4b', 'ladies-frock-4c'] }
-          ]
-        }
-      },
-      gents: {
-        hero: {
-          eyebrow: 'Gents Collection · 2026',
-          title: 'Latest <em>Tailor</em>',
-          desc: 'Stylish clothes for modern men — from custom sherwanis to three-piece suits. Every piece is handmade and fits you perfectly.'
-        },
-        categories: [
-          { id: 'all', name: 'All', icon: 'fa-border-all' },
-          { id: 'shirts', name: 'Shirts', icon: 'fa-shirt' },
-          { id: 'pants', name: 'Pants', icon: 'fa-person' },
-          { id: 'suits', name: 'Suits', icon: 'fa-user-tie' },
-          { id: 'blazer', name: 'Blazer', icon: 'fa-vest' },
-          { id: 'safari', name: 'Safari', icon: 'fa-vest-patches' },
-          { id: 'tuxedo', name: 'Tuxedo', icon: 'fa-user-tie' },
-          { id: 'sherwani', name: 'Sherwani', icon: 'fa-person' }
-        ],
-        products: {
-          shirts: [
-            { id: 'g-shirt-1', name: 'Egyptian White Formal', subtitle: 'Egyptian cotton formal shirt', price: 2800, work: 'Single-needle Stitching', fabric: 'Egyptian Cotton', desc: 'Crisp white formal shirt in 100% Egyptian cotton. Single-needle stitching throughout. Spread collar and mother-of-pearl buttons. Tailored to your measurements.', images: ['gents-shirt-1a', 'gents-shirt-1b', 'gents-shirt-1c', 'gents-shirt-1d'] },
-            { id: 'g-shirt-2', name: 'Linen Sky Casual', subtitle: 'Pure linen casual shirt', price: 2200, work: 'Garment Washed', fabric: 'Pure Linen', desc: 'Breathable pure linen shirt in soft sky blue. Pre-washed for softness. Camp collar option. Perfect for summer outings and resort wear.', images: ['gents-shirt-2a', 'gents-shirt-2b', 'gents-shirt-2c'] },
-            { id: 'g-shirt-3', name: 'Oxford Blue Striped', subtitle: 'Oxford cotton striped shirt', price: 2400, work: 'Single-needle Stitching', fabric: 'Oxford Cotton', desc: 'Classic Oxford shirt with subtle blue stripes. Button-down collar. Versatile for office and smart-casual occasions. Made to measure.', images: ['gents-shirt-3a', 'gents-shirt-3b', 'gents-shirt-3c'] },
-            { id: 'g-shirt-4', name: 'Mandarin Silk Blend', subtitle: 'Mandarin collar silk blend shirt', price: 3200, work: 'Hand-finishing', fabric: 'Silk Blend', desc: 'Elegant mandarin collar shirt in silk blend. Subtle sheen with hand-finished placket. Perfect for festive occasions and evening events.', images: ['gents-shirt-4a', 'gents-shirt-4b', 'gents-shirt-4c'] }
-          ],
-          pants: [
-            { id: 'g-pant-1', name: 'Pleated Formal Charcoal', subtitle: 'Pleated formal trousers', price: 4500, work: 'Single-needle Stitching', fabric: 'Wool Blend', desc: 'Classic pleated formal trousers in charcoal. Double-pleat front with side pockets. Tailored to your measurements. Pairs with formal shirts and blazers.', images: ['gents-pant-1a', 'gents-pant-1b', 'gents-pant-1c'] },
-            { id: 'g-pant-2', name: 'Chino Khaki Versatile', subtitle: 'Cotton chino trousers', price: 3200, work: 'Garment Washed', fabric: 'Cotton Twill', desc: 'Versatile khaki chino trousers in cotton twill. Slim-straight fit. Pre-washed for comfort. Smart casual for office and weekend wear.', images: ['gents-pant-2a', 'gents-pant-2b', 'gents-pant-2c'] },
-            { id: 'g-pant-3', name: 'Linen Summer Beige', subtitle: 'Linen trousers for summer', price: 2800, work: 'Flat-front Construction', fabric: 'Pure Linen', desc: 'Breathable pure linen trousers in soft beige. Flat-front with elastic back for comfort. Summer wedding and resort wear ready.', images: ['gents-pant-3a', 'gents-pant-3b', 'gents-pant-3c'] },
-            { id: 'g-pant-4', name: 'Jodhpuri Cream', subtitle: 'Jodhpuri style trousers', price: 5200, work: 'Hand-finishing', fabric: 'Cotton Blend', desc: 'Traditional Jodhpuri-style trousers in cream. Flared thigh with fitted ankle. Pairs with kurta or sherwani. Heritage statement piece.', images: ['gents-pant-4a', 'gents-pant-4b', 'gents-pant-4c'] }
-          ],
-          suits: [
-            { id: 'g-suit-1', name: 'Three Piece Heritage', subtitle: 'Charcoal wool-blend three-piece suit', price: 24000, work: 'Hand-finished Stitching', fabric: 'Italian Wool Blend', desc: 'A timeless three-piece suit in charcoal wool blend with hand-finished lapels and working cuffs. Includes jacket, waistcoat and trousers. Custom-stitched over 3 weeks.', images: ['gents-suit-1a', 'gents-suit-1b', 'gents-suit-1c', 'gents-suit-1d'] },
-            { id: 'g-suit-2', name: 'Navy Business Cut', subtitle: 'Slim-fit navy business suit', price: 18500, work: 'Half-canvas Construction', fabric: 'Wool Blend', desc: 'Versatile slim-fit navy suit for daily business wear. Half-canvas construction with natural shoulder line. Includes jacket and trousers. Made to measure.', images: ['gents-suit-2a', 'gents-suit-2b', 'gents-suit-2c'] },
-            { id: 'g-suit-3', name: 'Mint Wedding Suit', subtitle: 'Pastel wedding suit set', price: 28000, work: 'Hand Embroidery on Lapel', fabric: 'Linen-Wool Blend', desc: 'Pastel mint suit with subtle floral embroidery on lapel. Perfect for daytime weddings and engagements. Includes jacket, kurta-style shirt and trousers.', images: ['gents-suit-3a', 'gents-suit-3b', 'gents-suit-3c'] },
-            { id: 'g-suit-4', name: 'Prince Check Classic', subtitle: 'Prince of Wales check suit', price: 26000, work: 'Full-canvas Construction', fabric: 'Italian Wool', desc: 'Classic Prince of Wales check suit in grey. Full-canvas construction with peak lapels. Two-button jacket with side vents. Refined formal wear.', images: ['gents-suit-4a', 'gents-suit-4b', 'gents-suit-4c'] }
-          ],
-          blazer: [
-            { id: 'g-blazer-1', name: 'Double-Breasted Navy', subtitle: 'Double-breasted navy blazer', price: 14000, work: 'Half-canvas Construction', fabric: 'Wool Blend', desc: 'Sharp double-breasted blazer in navy. Half-canvas construction with peak lapels. Versatile for office and evening events. Tailored to measure.', images: ['gents-blazer-1a', 'gents-blazer-1b', 'gents-blazer-1c'] },
-            { id: 'g-blazer-2', name: 'Velvet Wine Evening', subtitle: 'Velvet blazer in deep wine', price: 18000, work: 'Satin Lapel Hand-stitched', fabric: 'Premium Velvet', desc: 'Statement velvet blazer in deep wine with satin shawl lapel. Single-button closure. For cocktail evenings and wedding receptions.', images: ['gents-blazer-2a', 'gents-blazer-2b', 'gents-blazer-2c'] },
-            { id: 'g-blazer-3', name: 'Tweed Heritage Brown', subtitle: 'Tweed blazer in earthy brown', price: 16000, work: 'Full-canvas Construction', fabric: 'Wool Tweed', desc: 'Heritage tweed blazer in earthy brown with elbow patches. Full-canvas construction. Winter ready and pairs beautifully with denim or trousers.', images: ['gents-blazer-3a', 'gents-blazer-3b', 'gents-blazer-3c'] },
-            { id: 'g-blazer-4', name: 'Linen Summer Cream', subtitle: 'Linen blazer for summer', price: 11000, work: 'Unlined Construction', fabric: 'Pure Linen', desc: 'Unlined pure linen blazer in soft cream. Natural shoulder with patch pockets. Breathable and lightweight for summer events.', images: ['gents-blazer-4a', 'gents-blazer-4b', 'gents-blazer-4c'] }
-          ],
-          safari: [
-            { id: 'g-safari-1', name: 'Classic Khaki Safari', subtitle: 'Classic four-pocket safari jacket', price: 8500, work: 'Belted Construction', fabric: 'Cotton Twill', desc: 'Classic four-pocket safari jacket in khaki. Belted waist with epaulettes. Pairs with trousers or jeans. Rugged yet refined.', images: ['gents-safari-1a', 'gents-safari-1b', 'gents-safari-1c'] },
-            { id: 'g-safari-2', name: 'Linen Beige Safari', subtitle: 'Linen safari suit set', price: 12000, work: 'Half-lined Construction', fabric: 'Pure Linen', desc: 'Linen safari suit in soft beige. Four-pocket jacket with matching trousers. Half-lined for breathability. Summer ready couture.', images: ['gents-safari-2a', 'gents-safari-2b', 'gents-safari-2c'] },
-            { id: 'g-safari-3', name: 'Olive Modern Safari', subtitle: 'Modern cut safari jacket', price: 9800, work: 'Soft Construction', fabric: 'Cotton Blend', desc: 'Modern-cut safari jacket in olive green. Soft construction with four bellows pockets. Slimmer silhouette for contemporary styling.', images: ['gents-safari-3a', 'gents-safari-3b', 'gents-safari-3c'] },
-            { id: 'g-safari-4', name: 'Ivory Wedding Safari', subtitle: 'Ivory safari for weddings', price: 15500, work: 'Hand Embroidery', fabric: 'Linen-Silk Blend', desc: 'Ivory safari jacket with subtle hand embroidery on collar. Four-pocket design with self-fabric belt. For daytime weddings and engagements.', images: ['gents-safari-4a', 'gents-safari-4b', 'gents-safari-4c'] }
-          ],
-          tuxedo: [
-            { id: 'g-tux-1', name: 'Tuxedo Noir Classic', subtitle: 'Black satin-lapel tuxedo', price: 32000, work: 'Hand-stitched Satin Lapel', fabric: 'Wool & Satin', desc: 'Classic black tuxedo with satin peak lapel and satin stripe trousers. Custom-tailored for black-tie events and formal evenings. Includes jacket and trousers.', images: ['gents-tuxedo-1a', 'gents-tuxedo-1b', 'gents-tuxedo-1c', 'gents-tuxedo-1d'] },
-            { id: 'g-tux-2', name: 'Midnight Blue Tuxedo', subtitle: 'Midnight blue shawl lapel tuxedo', price: 34000, work: 'Hand-finished Satin', fabric: 'Wool & Satin', desc: 'Sophisticated midnight blue tuxedo with shawl lapel. Satin-covered buttons. Custom-tailored for galas and black-tie weddings.', images: ['gents-tuxedo-2a', 'gents-tuxedo-2b', 'gents-tuxedo-2c'] },
-            { id: 'g-tux-3', name: 'Velvet Burgundy Tuxedo', subtitle: 'Velvet tuxedo in burgundy', price: 38000, work: 'Satin Lapel & Frog Closures', fabric: 'Premium Velvet', desc: 'Statement velvet tuxedo in deep burgundy with satin shawl lapel. Frog closure detailing. For the gentleman who stands out.', images: ['gents-tuxedo-3a', 'gents-tuxedo-3b', 'gents-tuxedo-3c'] },
-            { id: 'g-tux-4', name: 'White Summer Tuxedo', subtitle: 'White dinner jacket tuxedo', price: 30000, work: 'Hand-stitched Lapel', fabric: 'Tropical Wool', desc: 'Elegant white dinner jacket with black satin shawl lapel. Paired with black trousers. For summer weddings and tropical black-tie events.', images: ['gents-tuxedo-4a', 'gents-tuxedo-4b', 'gents-tuxedo-4c'] }
-          ],
-          sherwani: [
-            { id: 'g-sherwani-1', name: 'Royal Ivory Wedding', subtitle: 'Hand-embroidered wedding sherwani', price: 38000, work: 'Zardozi & Resham', fabric: 'Raw Silk & Organza', desc: 'Regal ivory sherwani with intricate zardozi hand embroidery on chest, collar and hem. Paired with churidar and matching dupatta. For the groom.', images: ['gents-sherwani-1a', 'gents-sherwani-1b', 'gents-sherwani-1c', 'gents-sherwani-1d'] },
-            { id: 'g-sherwani-2', name: 'Velvet Maroon Majesty', subtitle: 'Velvet embroidered sherwani', price: 28000, work: 'Aari & Dabka', fabric: 'Premium Velvet', desc: 'Rich maroon velvet sherwani with gold aari embroidery on placket and cuffs. Includes silk churidar. Winter wedding ready statement piece.', images: ['gents-sherwani-2a', 'gents-sherwani-2b', 'gents-sherwani-2c'] },
-            { id: 'g-sherwani-3', name: 'Indo-Western Fusion', subtitle: 'Asymmetric Indo-western sherwani', price: 24000, work: 'Thread & Crystal', fabric: 'Silk Blend', desc: 'Contemporary Indo-western sherwani with asymmetric closure and crystal detailing. Paired with fitted trousers. For the modern groom.', images: ['gents-sherwani-3a', 'gents-sherwani-3b', 'gents-sherwani-3c'] },
-            { id: 'g-sherwani-4', name: 'Jodhpuri Royal Bandhgala', subtitle: 'Jodhpuri bandhgala suit', price: 26000, work: 'Hand Quilting & Embroidery', fabric: 'Wool-Silk Blend', desc: 'Classic Jodhpuri bandhgala in deep navy with subtle hand quilting. Structured shoulder and fitted silhouette. Includes matching trousers.', images: ['gents-sherwani-4a', 'gents-sherwani-4b', 'gents-sherwani-4c'] }
-          ]
-        }
-      }
-    };
-
     const team = {
       ladies: [
-        { name: 'Mr. Suresh Seth', role: 'Master Tailor in traditional, modern western etc. · 45 Years Experience', phone: '919460800107', display: '+91 94608 00107', photo: 'tailor-priya-portrait' },
-        { name: 'Kirtesh Seth', role: 'Designer Specialist · 15 Years Experience', phone: '919460800107', display: '+91 94608 00107', photo: 'tailor-anjali-portrait' }
+        { name: 'Mr. Suresh Seth', role: 'Master Tailor in traditional, modern western etc. · 45 Years Experience', phone: '919460800107', display: '+91 94608 00107', photo: 'images/Masters/Mr. Suresh Seth.jpg' },
+        { name: 'Kirtesh Seth', role: 'Designer Specialist · 15 Years Experience', phone: '919460800107', display: '+91 94608 00107', photo: 'images/Masters/Kirtesh Seth.jpg' }
       ],
       gents: [
-        { name: 'Mr. Mahaveer Seth', role: 'Master Tailor in gents · 28 Years Experience', phone: '919460794876', display: '+91 94607 94876', photo: 'tailor-rajesh-portrait' },
-        { name: 'Yash Seth', role: 'Cut & Fit Expert · 4 Years Experience', phone: '919549699066', display: '+91 95496 99066', photo: 'tailor-vikram-portrait' }
+        { name: 'Mr. Mahaveer Seth', role: 'Master Tailor in gents · 28 Years Experience', phone: '919460794876', display: '+91 94607 94876', photo: 'images/Masters/Mr. Mahaveer Seth.jpeg' },
+        { name: 'Yash Seth', role: 'Cut & Fit Expert · 4 Years Experience', phone: '919549699066', display: '+91 95496 99066', photo: 'images/Masters/Yash Seth.png' }
       ]
     };
 
@@ -4367,18 +4404,18 @@
     // ============ HERO SLIDESHOW ============
     const heroImages = {
       ladies: [
-        'images/bridal_vermilion_lehenga.png',
-        'images/pastel_dawn_lehenga.png',
-        'images/velvet_royale_lehenga.png',
-        'images/cape_contemporary_lehenga.png',
-        'images/bridal_vermilion_lehenga.png'
+        'images/Ladies/bridal lehnga/bridal_vermilion_lehenga.png',
+        'images/Ladies/bridal lehnga/pastel_dawn_lehenga.png',
+        'images/Ladies/bridal lehnga/velvet_royale_lehenga.png',
+        'images/Ladies/lehnga/cape_contemporary_lehenga.png',
+        'images/Ladies/bridal lehnga/bridal_vermilion_lehenga.png'
       ],
       gents: [
-        'https://images.unsplash.com/photo-1617137968427-85924c800a22?auto=format&fit=crop&w=700&h=875&q=80',
-        'https://images.unsplash.com/photo-1594938298603-c8148c4dae35?auto=format&fit=crop&w=700&h=875&q=80',
-        'https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=700&h=875&q=80',
-        'https://images.unsplash.com/photo-1593032465175-481ac7f401a0?auto=format&fit=crop&w=700&h=875&q=80',
-        'https://images.unsplash.com/photo-1618886614638-80e3c103d31a?auto=format&fit=crop&w=700&h=875&q=80'
+        'images/Gents/Suit/benjamin-r-Ci_fZ5cL9Jo-unsplash.jpg',
+        'images/Gents/Sherwani/royal-photography-S9cIv71NRuE-unsplash.jpg',
+        'images/Gents/Suit/lonely-blue-QpjbNz7VNB4-unsplash.jpg',
+        'images/Gents/Tuxedo/bulbul-ahmed-Yv-UDciEBIg-unsplash.jpg',
+        'images/Gents/Sherwani/ahmed-syed-rXRFce8WOnU-unsplash.jpg'
       ]
     };
 
@@ -4756,6 +4793,35 @@
           selectedSize = opt.dataset.size;
         });
       });
+
+      // Click main image to open fullscreen lightbox
+      const mainImg = content.querySelector('#galleryMainImg');
+      if (mainImg) {
+        mainImg.style.cursor = 'pointer';
+        mainImg.addEventListener('click', openLightbox);
+      }
+
+      // Touch swipe gestures for gallery
+      const galleryMain = content.querySelector('.gallery-main');
+      if (galleryMain && p.images.length > 1) {
+        let touchStartX = 0;
+        let touchEndX = 0;
+        galleryMain.addEventListener('touchstart', (e) => {
+          touchStartX = e.changedTouches[0].screenX;
+        }, { passive: true });
+        galleryMain.addEventListener('touchend', (e) => {
+          touchEndX = e.changedTouches[0].screenX;
+          handleSwipe();
+        }, { passive: true });
+        function handleSwipe() {
+          const threshold = 50;
+          if (touchStartX - touchEndX > threshold) {
+            changeImage(1);
+          } else if (touchEndX - touchStartX > threshold) {
+            changeImage(-1);
+          }
+        }
+      }
     }
 
     function changeImage(dir) {
@@ -4774,6 +4840,56 @@
         dot.classList.toggle('active', idx === i);
       });
     }
+
+    // ============ LIGHTBOX ============
+    let lightboxImageIndex = 0;
+
+    function openLightbox() {
+      if (!currentProduct || !currentProduct.images || currentProduct.images.length === 0) return;
+      lightboxImageIndex = currentImageIndex;
+      renderLightboxContent();
+      document.getElementById('lightboxModal').classList.add('active');
+    }
+
+    function closeLightbox() {
+      document.getElementById('lightboxModal').classList.remove('active');
+    }
+
+    function renderLightboxContent() {
+      const p = currentProduct;
+      const img = document.getElementById('lightboxImg');
+      img.src = imgURL(p.images[lightboxImageIndex], 1200, 1600);
+      
+      const dotsContainer = document.getElementById('lightboxDots');
+      dotsContainer.innerHTML = p.images.map((_, i) => 
+        `<button class="lightbox-dot ${i === lightboxImageIndex ? 'active' : ''}" onclick="setLightboxImage(${i})" aria-label="Image ${i + 1}"></button>`
+      ).join('');
+
+      // Show/hide navigation based on image count
+      const navs = document.querySelectorAll('.lightbox-nav');
+      if (p.images.length <= 1) {
+        navs.forEach(nav => nav.style.display = 'none');
+        dotsContainer.style.display = 'none';
+      } else {
+        navs.forEach(nav => nav.style.display = 'flex');
+        dotsContainer.style.display = 'flex';
+      }
+    }
+
+    function changeLightboxImage(dir) {
+      const images = currentProduct.images;
+      lightboxImageIndex = (lightboxImageIndex + dir + images.length) % images.length;
+      renderLightboxContent();
+    }
+
+    window.setLightboxImage = function(i) {
+      lightboxImageIndex = i;
+      renderLightboxContent();
+    };
+
+    window.changeLightboxImage = changeLightboxImage;
+    window.closeLightbox = closeLightbox;
+
 
     function changeQty(delta) {
       selectedQty = Math.max(1, Math.min(10, selectedQty + delta));
@@ -5081,6 +5197,18 @@
 
     // ============ KEYBOARD ============
     document.addEventListener('keydown', (e) => {
+      // Lightbox keyboard controls
+      if (document.getElementById('lightboxModal') && document.getElementById('lightboxModal').classList.contains('active')) {
+        if (e.key === 'Escape') {
+          closeLightbox();
+        } else if (e.key === 'ArrowLeft') {
+          changeLightboxImage(-1);
+        } else if (e.key === 'ArrowRight') {
+          changeLightboxImage(1);
+        }
+        return; // stop other keyboard actions
+      }
+
       if (e.key === 'Escape') {
         if (document.getElementById('confirmationModal').classList.contains('active')) {
           closeConfirmation();
@@ -5097,6 +5225,30 @@
       }
       if (e.key === 'ArrowRight' && document.getElementById('productDrawer').classList.contains('active')) {
         changeImage(1);
+      }
+    });
+
+    // ============ LIGHTBOX INITIALIZATION ============
+    window.addEventListener('DOMContentLoaded', () => {
+      const lightboxModal = document.getElementById('lightboxModal');
+      if (lightboxModal) {
+        let touchStartX = 0;
+        let touchEndX = 0;
+        lightboxModal.addEventListener('touchstart', (e) => {
+          touchStartX = e.changedTouches[0].screenX;
+        }, { passive: true });
+        lightboxModal.addEventListener('touchend', (e) => {
+          touchEndX = e.changedTouches[0].screenX;
+          handleLightboxSwipe();
+        }, { passive: true });
+        function handleLightboxSwipe() {
+          const threshold = 50;
+          if (touchStartX - touchEndX > threshold) {
+            changeLightboxImage(1);
+          } else if (touchEndX - touchStartX > threshold) {
+            changeLightboxImage(-1);
+          }
+        }
       }
     });
 

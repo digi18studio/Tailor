@@ -17,9 +17,41 @@ const MIME_TYPES = {
   '.json': 'application/json'
 };
 
+// Generate static productsData.js on startup
+try {
+  const generator = require('./generateProductsData');
+  const content = generator.generateScriptContent(path.join(__dirname, 'images'));
+  fs.writeFileSync(path.join(__dirname, 'productsData.js'), content);
+  console.log('Dynamic productsData.js written to disk on startup.');
+} catch (err) {
+  console.error('Failed to generate productsData.js on startup:', err);
+}
+
 const server = http.createServer((req, res) => {
   // Decode URL to handle spaces or special characters in filenames
   const decodedUrl = decodeURIComponent(req.url);
+  
+  // Handle productsData.js request dynamically
+  if (decodedUrl === '/productsData.js') {
+    res.writeHead(200, { 'Content-Type': 'text/javascript' });
+    try {
+      const generator = require('./generateProductsData');
+      const content = generator.generateScriptContent(path.join(__dirname, 'images'));
+      res.end(content);
+    } catch (err) {
+      console.error('Error generating productsData.js dynamically:', err);
+      fs.readFile(path.join(__dirname, 'productsData.js'), (err2, staticContent) => {
+        if (err2) {
+          res.statusCode = 500;
+          res.end('Server Error');
+        } else {
+          res.end(staticContent);
+        }
+      });
+    }
+    return;
+  }
+
   let filePath = path.join(__dirname, decodedUrl === '/' ? 'Index.html' : decodedUrl);
   
   // Prevent directory traversal
@@ -51,3 +83,4 @@ const server = http.createServer((req, res) => {
 server.listen(PORT, '0.0.0.0', () => {
   console.log(`Server running at http://localhost:${PORT}/`);
 });
+
