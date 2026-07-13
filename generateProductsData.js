@@ -360,6 +360,27 @@ const ladiesShirtMetadata = {
   }
 };
 
+const ladiesSuitMetadata = {
+  "ikshana-productions-PO97e-4VdKg-unsplash": {
+    name: "Pakistani Designer Suit",
+    subtitle: "Elegant straight cut embroidered suit set",
+    work: "Thread embroidery & pearls",
+    fabric: "Silk Georgette"
+  },
+  "ikshana-productions-XmDZKCBFezg-unsplash": {
+    name: "Royal Anarkali Suit",
+    subtitle: "Floor-length flared anarkali suit set",
+    work: "Zari embroidery & lace trims",
+    fabric: "Premium Chanderi Silk"
+  },
+  "rupali-neelkanth-8c12YYpzMdk-unsplash": {
+    name: "Festive Salwar Kameez",
+    subtitle: "Classic traditional salwar suit set",
+    work: "Handcrafted Gota Patti work",
+    fabric: "Cambric Cotton"
+  }
+};
+
 const defaultTemplate = {
   subtitles: ['Custom tailored outfit', 'Premium bespoke couture', 'Handcrafted traditional wear'],
   fabrics: ['Premium Cotton', 'Silk Blend', 'Linen Blend'],
@@ -407,9 +428,18 @@ function generateProductsCatalog(imagesDir) {
       return;
     }
 
-    const categories = fs.readdirSync(genderPath).filter(item => {
+    let categories = fs.readdirSync(genderPath).filter(item => {
       return fs.statSync(path.join(genderPath, item)).isDirectory();
     });
+
+    if (gender === 'gents') {
+      const order = ['suit', 'shirt', 'kurta', 'sherwani', 'tuxedo'];
+      categories.sort((a, b) => {
+        const idxA = order.indexOf(a.toLowerCase());
+        const idxB = order.indexOf(b.toLowerCase());
+        return (idxA === -1 ? 999 : idxA) - (idxB === -1 ? 999 : idxB);
+      });
+    }
 
     categories.forEach(catFolder => {
       const catId = catFolder.toLowerCase().replace(/\s+/g, '-');
@@ -535,12 +565,49 @@ function generateProductsCatalog(imagesDir) {
               desc = `A bespoke ladies custom-fit shirt tailored from ${fabric.toLowerCase()} fabric, featuring detailed ${work.toLowerCase()} and master tailoring.`;
             }
           }
+        } else if (catId === 'suit') {
+          if (gender === 'ladies') {
+            const meta = ladiesSuitMetadata[prod.originalBase];
+            if (meta) {
+              if (meta.name) name = meta.name;
+              if (meta.subtitle) subtitle = meta.subtitle;
+              if (meta.work) work = meta.work;
+              if (meta.fabric) fabric = meta.fabric;
+              desc = `A premium custom-fit ladies suit tailored from ${fabric.toLowerCase()} fabric, featuring detailed ${work.toLowerCase()} and master tailoring.`;
+            }
+          }
         }
 
         const [minPrice, maxPrice] = temp.priceRange;
         // Step size of 100 for neat prices
         const priceSteps = Math.floor((maxPrice - minPrice) / 100);
-        const price = minPrice + ((hash % (priceSteps + 1)) * 100);
+        let price = minPrice + ((hash % (priceSteps + 1)) * 100);
+
+        // Apply price division factors as requested by user
+        if (gender === 'ladies') {
+          if (catId === 'blouse' || catId === 'bridal-lehnga') {
+            price = Math.round((price / 2) / 100) * 100;
+          } else if (catId === 'co-ord-set') {
+            price = Math.round((price / 4) / 100) * 100;
+          } else if (catId === 'kurta' || catId === 'printed-shirt' || catId === 'shirt') {
+            price = Math.round((price / 3) / 100) * 100;
+          } else if (catId === 'suit') {
+            price = Math.round((price / 12) / 100) * 100;
+          }
+        } else if (gender === 'gents') {
+          if (catId === 'kurta' || catId === 'shirt') {
+            price = Math.round((price / 3) / 100) * 100;
+          } else if (catId === 'sherwani') {
+            price = Math.round((price / 2) / 100) * 100;
+          } else if (catId === 'tuxedo') {
+            price = Math.round((price / 18) / 100) * 100;
+          }
+        }
+
+        // Subtract 1 rupee if the price ends in a multiple of 100 (charm pricing)
+        if (price % 100 === 0) {
+          price -= 1;
+        }
 
         const productImages = [...prod.images];
         if (gender === 'gents') {

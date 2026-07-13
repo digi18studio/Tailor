@@ -12,6 +12,7 @@
     href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
     rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="icon" type="image/svg+xml" href="images/sewing-machine-fashion-svgrepo-com.svg">
   <style>
     :root {
       --bg: #FAFBFC;
@@ -186,6 +187,19 @@
       animation: drawThread 1.3s ease-out 0.8s forwards;
     }
 
+    .splash-machine {
+      opacity: 0;
+      transform: scale(0.8);
+      animation: fadeInMachine 1s cubic-bezier(0.34, 1.56, 0.64, 1) 0.5s forwards;
+    }
+
+    @keyframes fadeInMachine {
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
     @keyframes drawRing {
       to {
         stroke-dashoffset: 0;
@@ -321,6 +335,17 @@
     .welcome-eyebrow::before,
     .welcome-eyebrow::after {
       display: none;
+    }
+
+    .welcome-subtext {
+      font-size: 13px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-weight: 700;
+      text-align: center;
+      margin-top: 12px;
+      display: block;
     }
 
     .welcome-title {
@@ -504,11 +529,11 @@
     }
 
     .welcome-card.ladies .wc-bg {
-      background-image: linear-gradient(160deg, rgba(236, 72, 153, 0.25), rgba(253, 242, 248, 0.5)), url('images/Ladies/saksham-gangwar-wWiEThMgY94-unsplash.jpg');
+      background-image: linear-gradient(160deg, rgba(236, 72, 153, 0.25), rgba(253, 242, 248, 0.5)), url('images/Ladies/lehnga/ikshana-productions-_LrZbsWTtqA-unsplash.jpg');
     }
 
     .welcome-card.gents .wc-bg {
-      background-image: linear-gradient(160deg, rgba(30, 58, 138, 0.3), rgba(239, 246, 255, 0.5)), url('images/Gents/Suit/mohamad-khosravi-LXzZQuT467s-unsplash.jpg');
+      background-image: linear-gradient(160deg, rgba(30, 58, 138, 0.3), rgba(239, 246, 255, 0.5)), url('images/Gents/Suit/suit (6).jpg');
     }
 
     /* ============ FULLSCREEN LIGHTBOX ============ */
@@ -590,7 +615,7 @@
 
     .lightbox-content {
       max-width: 90%;
-      max-height: 80%;
+      max-height: 80vh;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -600,7 +625,7 @@
 
     .lightbox-content img {
       max-width: 100%;
-      max-height: 80vh;
+      max-height: 100%;
       object-fit: contain;
       border-radius: 8px;
       box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
@@ -1522,9 +1547,19 @@
       scroll-snap-type: x mandatory;
       padding: 8px 0 20px;
       margin: 0 -20px;
-      padding-left: 20px;
-      padding-right: 20px;
       scrollbar-width: none;
+    }
+
+    .products-scroll::before {
+      content: '';
+      width: 2px;
+      flex-shrink: 0;
+    }
+
+    .products-scroll::after {
+      content: '';
+      width: 2px;
+      flex-shrink: 0;
     }
 
     .products-scroll::-webkit-scrollbar {
@@ -4009,10 +4044,17 @@
   <!-- ============ SPLASH ============ -->
   <div id="splash">
     <div class="splash-mark">
-      <svg viewBox="0 0 100 100">
+      <svg viewBox="0 0 100 100" style="position: absolute; inset: 0;">
         <circle class="splash-ring" cx="50" cy="50" r="45" />
-        <path class="splash-needle" d="M 30 70 L 70 30 M 50 50 L 65 35" />
-        <path class="splash-thread" d="M 30 70 Q 40 60 50 50 T 70 30" />
+      </svg>
+      <svg class="splash-machine" viewBox="0 0 512 512" fill="var(--accent)" style="position: absolute; width: 44px; height: 44px; top: 18px; left: 18px;">
+        <g>
+          <g>
+            <g>
+              <path d="M477.867,422.4h-25.6V268.8c0-3.029-0.094-6.042-0.265-9.028c-2.569-44.467-25.293-84.932-62.344-111.01c-22.281-15.701-47.718-24.951-73.924-27.46V89.6h8.533h17.067c4.71,0,8.533-3.814,8.533-8.533s-3.823-8.533-8.533-8.533H332.8V38.4h8.533c4.71,0,8.533-3.814,8.533-8.533s-3.823-8.533-8.533-8.533h-17.067h-34.133h-17.067c-4.71,0-8.533,3.814-8.533,8.533s3.823,8.533,8.533,8.533h8.533v34.133h-8.533c-4.71,0-8.533,3.814-8.533,8.533s3.823,8.533,8.533,8.533h17.067h8.533v31.036c-13.688,0.23-27.452,2.27-40.951,6.246l-89.719,26.394c-10.377,3.038-21.111,4.591-31.906,4.591h-6.238c-16.41,0-32.529-4.463-46.609-12.911c-7.381-4.429-13.815-11.418-19.661-21.367c-6.118-10.436-17.408-16.922-29.448-16.922C15.309,106.667,0,121.975,0,140.8v196.267c0,15.864,10.923,29.107,25.6,32.922V396.8c0,4.719,3.823,8.533,8.533,8.533c4.71,0,8.533-3.814,8.533-8.533v-26.812c14.677-3.814,25.6-17.058,25.6-32.922V320c0-23.526,19.14-42.667,42.667-42.667H230.4c9.114,0,18.057,2.415,25.847,6.98c18.569,10.871,27.639,34.039,22.059,56.354L257.869,422.4H34.133C15.309,422.4,0,437.709,0,456.533c0,18.825,15.309,34.133,34.133,34.133h443.733c18.825,0,34.133-15.309,34.133-34.133C512,437.709,496.691,422.4,477.867,422.4z M119.467,192h51.2c4.71,0,8.533,3.814,8.533,8.533s-3.823,8.533-8.533,8.533h-51.2c-4.71,0-8.533-3.814-8.533-8.533S114.756,192,119.467,192z M204.8,243.2h-85.333c-4.71,0-8.533-3.814-8.533-8.533s3.823-8.533,8.533-8.533H204.8c4.71,0,8.533,3.814,8.533,8.533S209.51,243.2,204.8,243.2z M298.667,38.4h17.067v34.133h-17.067V38.4z M341.333,388.267c-4.71,0-8.533-3.823-8.533-8.533s3.823-8.533,8.533-8.533c4.71,0,8.533,3.823,8.533,8.533S346.044,388.267,341.333,388.267z M375.467,388.267c-4.71,0-8.533-3.823-8.533-8.533s3.823-8.533,8.533-8.533c4.71,0,8.533,3.823,8.533,8.533S380.177,388.267,375.467,388.267z M341.333,277.333c-23.526,0-42.667-19.14-42.667-42.667c0-23.526,19.14-42.667,42.667-42.667C364.86,192,384,211.14,384,234.667C384,258.193,364.86,277.333,341.333,277.333zM341.333,209.067c-14.114,0-25.6,11.486-25.6,25.6s11.486,25.6,25.6,25.6c14.114,0,25.6-11.486,25.6-25.6S355.447,209.067,341.333,209.067z M341.333,243.2c-4.71,0-8.533-3.823-8.533-8.533s3.823-8.533,8.533-8.533c4.71,0,8.533,3.823,8.533,8.533S346.044,243.2,341.333,243.2zM460.799,294.4h51.2v17.067h-51.2V294.4z M486.4,243.2c-14.114,0-25.6,11.486-25.6,25.6v8.533H512V268.8C512,254.686,500.514,243.2,486.4,243.2zM460.8,371.2c0,14.114,11.486,25.6,25.6,25.6s25.6-11.486,25.6-25.6v-8.533h-51.2V371.2zM460.799,328.533h51.2v17.067h-51.2V328.533z"/>
+            </g>
+          </g>
+        </g>
       </svg>
     </div>
     <div class="splash-title">New Latest Tailors</div>
@@ -4023,7 +4065,8 @@
   <!-- ============ WELCOME ============ -->
   <div id="welcome" class="hidden">
     <div class="welcome-header">
-      <div class="welcome-eyebrow">Welcome to<br>New Latest Tailors</div>
+      <div class="welcome-eyebrow">Welcome to Our<br>Custom Tailoring Store</div>
+      <div class="welcome-subtext">Choose your collection</div>
     </div>
     <div class="welcome-cards">
       <div class="welcome-card ladies" data-gender="ladies">
@@ -4071,7 +4114,7 @@
       <div class="brand" onclick="goHome()">
         <div class="brand-mark" id="brandLogoMark">
           <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" style="display:block;">
-            <path d="M12 2a2 2 0 0 0-2 2h4a2 2 0 0 0-2-2zm3.8 3.5L15 5H9l-.8.5L7 12h10l-1.2-6.5zM6 13l-1.5 8h15l-1.5-8H6z" />
+            <path d="M12 2 C 10.9 2, 10 2.9, 10 4 C 10 4.3, 10.1 4.6, 10.3 4.8 L 9 6 L 8 12 L 10.5 14 L 6 21 C 6 21.6, 6.4 22, 7 22 L 17 22 C 17.6 22, 18 21.6, 18 21 L 13.5 14 L 16 12 L 15 6 L 13.7 4.8 C 13.9 4.6, 14 4.3, 14 4 C 14 2.9, 13.1 2, 12 2 Z" />
           </svg>
         </div>
         <div class="brand-text">
@@ -4158,9 +4201,9 @@
     <div class="collection-banner-container" id="collectionBannerContainer">
       <div class="collection-banner" id="collectionBanner">
         <div class="banner-content">
-          <span class="banner-badge" id="bannerBadge">LADIES ATELIER</span>
-          <h2 class="banner-title" id="bannerTitle">Crafting Your <em>Dream Silhouette</em></h2>
-          <p class="banner-desc" id="bannerDesc">From royal bridal lehengas to contemporary co-ord sets, get custom designs stitched to your exact fit.</p>
+          <span class="banner-badge" id="bannerBadge">LADIES COLLECTION</span>
+          <h2 class="banner-title" id="bannerTitle">Crafting Your <em>Dream Attire</em></h2>
+          <p class="banner-desc" id="bannerDesc">From designer blouses to royal bridal lehengas, get custom designs stitched to your exact fit.</p>
           <div class="banner-actions" style="display: flex; gap: 14px; flex-wrap: wrap; margin-top: 14px;">
             <a href="https://wa.me/919460800107" target="_blank" class="banner-btn" id="bannerBtn">
               <i class="fab fa-whatsapp"></i> Book your appointment
@@ -4752,18 +4795,18 @@
     // ============ HERO SLIDESHOW ============
     const heroImages = {
       ladies: [
-        'images/Ladies/bridal lehnga/bridal_vermilion_lehenga.png',
-        'images/Ladies/bridal lehnga/pastel_dawn_lehenga.png',
+        'images/Ladies/bridal lehnga/red_wedding_heavy_lehnga.jpg',
         'images/Ladies/bridal lehnga/velvet_royale_lehenga.png',
-        'images/Ladies/lehnga/cape_contemporary_lehenga.png',
-        'images/Ladies/bridal lehnga/bridal_vermilion_lehenga.png'
+        'images/Ladies/lehnga/ikshana-productions-_LrZbsWTtqA-unsplash.jpg',
+        'images/Ladies/lehnga/lehnga (1).jpg',
+        'images/Ladies/blouse/boat_neck_blouse.png'
       ],
       gents: [
-        'images/Gents/Suit/benjamin-r-Ci_fZ5cL9Jo-unsplash.jpg',
-        'images/Gents/Sherwani/royal-photography-S9cIv71NRuE-unsplash.jpg',
-        'images/Gents/Suit/lonely-blue-QpjbNz7VNB4-unsplash.jpg',
-        'images/Gents/Tuxedo/bulbul-ahmed-Yv-UDciEBIg-unsplash.jpg',
-        'images/Gents/Sherwani/ahmed-syed-rXRFce8WOnU-unsplash.jpg'
+        'images/Gents/Suit/suit (1).jpg',
+        'images/Gents/Sherwani/sherwani_1.jpg',
+        'images/Gents/Tuxedo/tuxedo (1).jpg',
+        'images/Gents/Suit/suit (2).jpg',
+        'images/Gents/Sherwani/sherwani_2.jpg'
       ]
     };
 
@@ -4857,9 +4900,9 @@
       const bannerVisual = document.getElementById('bannerVisual');
       
       if (gender === 'ladies') {
-        if (bannerBadge) bannerBadge.innerText = 'LADIES ATELIER';
-        if (bannerTitle) bannerTitle.innerHTML = 'Crafting Your <em>Dream Silhouette</em>';
-        if (bannerDesc) bannerDesc.innerText = 'From royal bridal lehengas to contemporary co-ord sets, get custom designs stitched to your exact fit.';
+        if (bannerBadge) bannerBadge.innerText = 'LADIES COLLECTION';
+        if (bannerTitle) bannerTitle.innerHTML = 'Crafting Your <em>Dream Attire</em>';
+        if (bannerDesc) bannerDesc.innerText = 'From designer blouses to royal bridal lehengas, get custom designs stitched to your exact fit.';
         if (bannerBtn) {
           bannerBtn.href = 'https://wa.me/919460800107';
           bannerBtn.style.color = '#DB2777'; // ladies color
@@ -4870,7 +4913,7 @@
         }
         if (bannerVisual) bannerVisual.innerHTML = '<i class="fas fa-wand-magic-sparkles"></i>';
       } else {
-        if (bannerBadge) bannerBadge.innerText = 'GENTS ATELIER';
+        if (bannerBadge) bannerBadge.innerText = 'GENTS COLLECTION';
         if (bannerTitle) bannerTitle.innerHTML = 'Stitched for the <em>Gentleman</em>';
         if (bannerDesc) bannerDesc.innerText = 'Discover tailored luxury with custom sherwanis, structured blazers, and crisp shirts fitted to your style.';
         if (bannerBtn) {
@@ -4889,7 +4932,7 @@
         if (gender === 'ladies') {
           logoMark.innerHTML = `
             <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" style="display:block;">
-              <path d="M12 2a2 2 0 0 0-2 2h4a2 2 0 0 0-2-2zm3.8 3.5L15 5H9l-.8.5L7 12h10l-1.2-6.5zM6 13l-1.5 8h15l-1.5-8H6z" />
+              <path d="M12 2 C 10.9 2, 10 2.9, 10 4 C 10 4.3, 10.1 4.6, 10.3 4.8 L 9 6 L 8 12 L 10.5 14 L 6 21 C 6 21.6, 6.4 22, 7 22 L 17 22 C 17.6 22, 18 21.6, 18 21 L 13.5 14 L 16 12 L 15 6 L 13.7 4.8 C 13.9 4.6, 14 4.3, 14 4 C 14 2.9, 13.1 2, 12 2 Z" />
             </svg>
           `;
         } else {
@@ -5186,6 +5229,12 @@
       if (mainImg) {
         mainImg.style.cursor = 'pointer';
         mainImg.addEventListener('click', openLightbox);
+        const imgPath = p.images[currentImageIndex];
+        if (imgPath && imgPath.includes('size_chart')) {
+          mainImg.style.objectFit = 'contain';
+        } else {
+          mainImg.style.objectFit = 'cover';
+        }
       }
 
       // Touch swipe gestures for gallery
@@ -5214,7 +5263,14 @@
     function changeImage(dir) {
       const images = currentProduct.images;
       currentImageIndex = (currentImageIndex + dir + images.length) % images.length;
-      document.getElementById('galleryMainImg').src = imgURL(images[currentImageIndex], 800, 1000);
+      const imgPath = images[currentImageIndex];
+      const mainImg = document.getElementById('galleryMainImg');
+      mainImg.src = imgURL(imgPath, 800, 1000);
+      if (imgPath.includes('size_chart')) {
+        mainImg.style.objectFit = 'contain';
+      } else {
+        mainImg.style.objectFit = 'cover';
+      }
       document.querySelectorAll('.gallery-dot').forEach((dot, i) => {
         dot.classList.toggle('active', i === currentImageIndex);
       });
@@ -5222,7 +5278,14 @@
 
     function setImage(i) {
       currentImageIndex = i;
-      document.getElementById('galleryMainImg').src = imgURL(currentProduct.images[i], 800, 1000);
+      const imgPath = currentProduct.images[i];
+      const mainImg = document.getElementById('galleryMainImg');
+      mainImg.src = imgURL(imgPath, 800, 1000);
+      if (imgPath.includes('size_chart')) {
+        mainImg.style.objectFit = 'contain';
+      } else {
+        mainImg.style.objectFit = 'cover';
+      }
       document.querySelectorAll('.gallery-dot').forEach((dot, idx) => {
         dot.classList.toggle('active', idx === i);
       });
