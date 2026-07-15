@@ -317,19 +317,22 @@
 
     .welcome-eyebrow {
       display: block;
-      font-size: clamp(24px, 7.5vw, 36px);
+      font-size: clamp(20px, 6vw, 32px);
       word-spacing: 3px;
       letter-spacing: 0.08em;
-      background: linear-gradient(-135deg, #1E40AF 0%, #EC4899 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      text-fill-color: transparent;
       text-transform: uppercase;
       margin-bottom: 0;
       font-weight: 900;
       text-align: center;
       line-height: 1.3;
+    }
+
+    .welcome-pink {
+      color: #EC4899;
+    }
+
+    .welcome-blue {
+      color: #1E40AF;
     }
 
     .welcome-eyebrow::before,
@@ -1716,7 +1719,7 @@
 
     @media (max-width: 480px) {
       .product-card {
-        flex: 0 0 210px;
+        flex: 0 0 235px;
         border-radius: 14px;
       }
       .pc-badge {
@@ -3350,6 +3353,17 @@
       font-size: 12px;
     }
 
+    .designer-link {
+      color: white !important;
+      text-decoration: none !important;
+      transition: color 0.3s ease;
+    }
+
+    .designer-link:hover, .designer-link:active, .designer-link:focus {
+      color: #FFD700 !important; /* Premium Gold/Yellow */
+      text-decoration: none !important;
+    }
+
     /* ============ TOAST ============ */
     .toast-container {
       position: fixed;
@@ -4065,7 +4079,10 @@
   <!-- ============ WELCOME ============ -->
   <div id="welcome" class="hidden">
     <div class="welcome-header">
-      <div class="welcome-eyebrow">Welcome to Our<br>Custom Tailoring Store</div>
+      <div class="welcome-eyebrow">
+        <span class="welcome-pink">Welcome to Our</span><br>
+        <span class="welcome-blue">Custom Tailoring Store</span>
+      </div>
       <div class="welcome-subtext">Choose your collection</div>
     </div>
     <div class="welcome-cards">
@@ -4129,6 +4146,10 @@
       </div>
       <div class="header-actions" style="display:flex;align-items:center;">
         <button class="nav-link-btn" onclick="showAboutPage()" style="margin-right:8px;">About & Contact</button>
+        <button class="icon-btn" onclick="openWishlist()" aria-label="Open wishlist" style="margin-right:8px; position:relative;">
+          <i class="far fa-heart"></i>
+          <span class="cart-count" id="wishlistCount" style="display:none;">0</span>
+        </button>
         <button class="icon-btn" onclick="openCart()" aria-label="Open cart">
           <i class="fas fa-shopping-bag"></i>
           <span class="cart-count" id="cartCount" style="display:none;">0</span>
@@ -4337,7 +4358,12 @@
       </div>
       <div class="footer-bottom">
         <div>© 2026 New Latest Tailors · All rights reserved</div>
-        <div>Crafted with care in Udaipur, Rajasthan</div>
+        <div>
+          Design By: 
+          <a class="designer-link" href="https://digi18studio.github.io/Portfolio/" target="_blank">Harshit Seth</a> 
+          • 
+          <a class="designer-link" href="https://www.instagram.com/digi18studio?igsh=MXdhd211b3BxanRsZQ==" target="_blank">Digi18 STUDIO</a>
+        </div>
       </div>
     </footer>
   </main>
@@ -4568,7 +4594,12 @@
       </div>
       <div class="footer-bottom">
         <div>© 2026 New Latest Tailors · All rights reserved</div>
-        <div>Crafted with care in Udaipur, Rajasthan</div>
+        <div>
+          Design By: 
+          <a class="designer-link" href="https://digi18studio.github.io/Portfolio/" target="_blank">Harshit Seth</a> 
+          • 
+          <a class="designer-link" href="https://www.instagram.com/digi18studio?igsh=MXdhd211b3BxanRsZQ==" target="_blank">Digi18 STUDIO</a>
+        </div>
       </div>
     </footer>
   </div>
@@ -4586,6 +4617,19 @@
       <i class="fas fa-times"></i>
     </button>
     <div class="drawer-grid" id="drawerContent"></div>
+  </div>
+
+  <!-- ============ WISHLIST DRAWER ============ -->
+  <div class="drawer-overlay" id="wishlistOverlay" onclick="closeWishlist()"></div>
+  <div class="cart-drawer" id="wishlistDrawer" style="z-index: 10100;">
+    <div class="cart-header">
+      <h3 class="cart-title">Your <em>Wishlist</em></h3>
+      <button class="icon-btn" onclick="closeWishlist()" aria-label="Close wishlist"
+        style="width:36px;height:36px;font-size:13px;">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <div class="cart-body" id="wishlistBody"></div>
   </div>
 
   <!-- ============ CART DRAWER ============ -->
@@ -4633,9 +4677,64 @@
             <input type="tel" id="custMobile" placeholder="+91 98765 43210" required>
           </div>
         </div>
-        <div class="form-group" style="margin-bottom:14px;">
-          <label>Delivery Address</label>
-          <textarea id="custAddress" placeholder="House no, street, city, pincode" rows="2" required></textarea>
+        <div class="form-row two">
+          <div class="form-group" id="stateGroup">
+            <label>State</label>
+            <select id="custState" onchange="populateCities()" required>
+              <option value="">Select State</option>
+              <option value="Andhra Pradesh">Andhra Pradesh</option>
+              <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+              <option value="Assam">Assam</option>
+              <option value="Bihar">Bihar</option>
+              <option value="Chhattisgarh">Chhattisgarh</option>
+              <option value="Goa">Goa</option>
+              <option value="Gujarat">Gujarat</option>
+              <option value="Haryana">Haryana</option>
+              <option value="Himachal Pradesh">Himachal Pradesh</option>
+              <option value="Jharkhand">Jharkhand</option>
+              <option value="Karnataka">Karnataka</option>
+              <option value="Kerala">Kerala</option>
+              <option value="Madhya Pradesh">Madhya Pradesh</option>
+              <option value="Maharashtra">Maharashtra</option>
+              <option value="Manipur">Manipur</option>
+              <option value="Meghalaya">Meghalaya</option>
+              <option value="Mizoram">Mizoram</option>
+              <option value="Nagaland">Nagaland</option>
+              <option value="Odisha">Odisha</option>
+              <option value="Punjab">Punjab</option>
+              <option value="Rajasthan">Rajasthan</option>
+              <option value="Sikkim">Sikkim</option>
+              <option value="Tamil Nadu">Tamil Nadu</option>
+              <option value="Telangana">Telangana</option>
+              <option value="Tripura">Tripura</option>
+              <option value="Uttar Pradesh">Uttar Pradesh</option>
+              <option value="Uttarakhand">Uttarakhand</option>
+              <option value="West Bengal">West Bengal</option>
+              <option value="Delhi">Delhi (UT)</option>
+              <option value="Jammu & Kashmir">Jammu & Kashmir (UT)</option>
+              <option value="Chandigarh">Chandigarh (UT)</option>
+              <option value="Puducherry">Puducherry (UT)</option>
+              <option value="Other">Other (Type Manually)</option>
+            </select>
+            <input type="text" id="custStateManual" placeholder="Enter State Name" style="display: none; margin-top: 8px; width: 100%; border: 1px solid var(--border); border-radius: 8px; padding: 10px; font-family: 'Plus Jakarta Sans', sans-serif;">
+          </div>
+          <div class="form-group" id="cityGroup">
+            <label>City</label>
+            <select id="custCity" onchange="checkCityManual()" required>
+              <option value="">Select City</option>
+            </select>
+            <input type="text" id="custCityManual" placeholder="Enter City Name" style="display: none; margin-top: 8px; width: 100%; border: 1px solid var(--border); border-radius: 8px; padding: 10px; font-family: 'Plus Jakarta Sans', sans-serif;">
+          </div>
+        </div>
+        <div class="form-row two" style="margin-bottom:14px;">
+          <div class="form-group" style="flex: 2;">
+            <label>Street Address / Locality</label>
+            <input type="text" id="custStreet" placeholder="e.g. 66, Maldas Street" required>
+          </div>
+          <div class="form-group" style="flex: 1;">
+            <label>Zip Code</label>
+            <input type="text" id="custZip" placeholder="e.g. 313001" pattern="[0-9]{6}" maxlength="6" required>
+          </div>
         </div>
         <div class="form-row two">
           <div class="form-group">
@@ -4695,6 +4794,31 @@
               </div>
               <div class="pay-opt-radio"></div>
             </div>
+
+            <!-- Expanded UPI Details Panel -->
+            <div class="upi-details-container" id="upiDetailsContainer" style="display: none; margin: 8px 0 16px; border: 1px solid var(--border); border-radius: 12px; padding: 16px; background: var(--bg-2); box-shadow: inset 0 2px 4px rgba(0,0,0,0.03);">
+              <div style="display: flex; flex-direction: column; align-items: center; gap: 10px;">
+                <span style="font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); font-weight: 700; text-align: center;">Scan QR Code to Pay</span>
+                <div id="upiQrCodeContainer" style="background: white; padding: 10px; border-radius: 10px; border: 1px solid var(--border); display: flex; justify-content: center; align-items: center; width: 140px; height: 140px; box-shadow: var(--shadow-sm);">
+                  <img id="upiQrImg" src="" alt="UPI QR Code" style="max-width: 100%; max-height: 100%; display: block;">
+                </div>
+                <div style="font-size: 13px; font-weight: 700; color: var(--ink); text-align: center;">Amount to Pay: <span id="upiAmountLabel" style="color: var(--accent);">₹0</span></div>
+                
+                <span style="font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); font-weight: 700; text-align: center; margin-top: 4px;">Or Pay Instantly via UPI App</span>
+                <div style="display: flex; justify-content: center; gap: 8px; width: 100%; flex-wrap: wrap;">
+                  <a id="gpayDeepLink" href="#" class="btn" style="flex: 1; min-width: 90px; padding: 10px; font-size: 11px; font-weight: 700; text-align: center; border-radius: 8px; background: #EA4335; color: white !important; display: flex; align-items: center; justify-content: center; gap: 4px; border: none; cursor: pointer; text-decoration: none !important;">
+                    <i class="fab fa-google-pay" style="font-size: 16px;"></i> GPay
+                  </a>
+                  <a id="phonepeDeepLink" href="#" class="btn" style="flex: 1; min-width: 90px; padding: 10px; font-size: 11px; font-weight: 700; text-align: center; border-radius: 8px; background: #5f259f; color: white !important; display: flex; align-items: center; justify-content: center; gap: 4px; border: none; cursor: pointer; text-decoration: none !important;">
+                    <i class="fas fa-wallet" style="font-size: 12px;"></i> PhonePe
+                  </a>
+                  <a id="paytmDeepLink" href="#" class="btn" style="flex: 1; min-width: 90px; padding: 10px; font-size: 11px; font-weight: 700; text-align: center; border-radius: 8px; background: #00b9f5; color: white !important; display: flex; align-items: center; justify-content: center; gap: 4px; border: none; cursor: pointer; text-decoration: none !important;">
+                    <i class="fas fa-money-bill-wave" style="font-size: 12px;"></i> Paytm
+                  </a>
+                </div>
+              </div>
+            </div>
+
             <div class="pay-opt" data-pay="shop">
               <div class="pay-opt-icon"><i class="fas fa-store"></i></div>
               <div style="flex:1;">
@@ -4845,6 +4969,7 @@
     let currentGender = 'ladies';
     let currentCategory = 'all';
     let cart = [];
+    let wishlist = JSON.parse(localStorage.getItem('nt_wishlist')) || [];
     let savedScrollY = 0;
     let currentProduct = null;
     let currentImageIndex = 0;
@@ -4854,6 +4979,145 @@
     let uploadedPhoto = null;
 
     // ============ HELPERS ============
+    const locationData = {
+      "Andhra Pradesh": ["Visakhapatnam", "Vijayawada", "Guntur", "Nellore", "Kurnool", "Tirupati", "Rajahmundry", "Kakinada", "Anantapur", "Kadapa"],
+      "Arunachal Pradesh": ["Itanagar", "Tawang", "Naharlagun", "Pasighat", "Ziro"],
+      "Assam": ["Guwahati", "Dibrugarh", "Silchar", "Jorhat", "Nagaon", "Tinsukia", "Tezpur"],
+      "Bihar": ["Patna", "Gaya", "Bhagalpur", "Muzaffarpur", "Purnia", "Darbhanga", "Bihar Sharif", "Arrah", "Begusarai"],
+      "Chhattisgarh": ["Raipur", "Bhilai", "Bilaspur", "Korba", "Rajnandgaon", "Jagdalpur", "Durg"],
+      "Goa": ["Panaji", "Margao", "Vasco da Gama", "Mapusa", "Ponda"],
+      "Gujarat": ["Ahmedabad", "Surat", "Vadodara", "Rajkot", "Bhavnagar", "Jamnagar", "Junagadh", "Gandhinagar", "Anand", "Morbi"],
+      "Haryana": ["Gurugram", "Faridabad", "Panipat", "Ambala", "Yamunanagar", "Rohtak", "Hisar", "Karnal", "Sonipat", "Panchkula"],
+      "Himachal Pradesh": ["Shimla", "Dharamshala", "Solan", "Mandi", "Kullu", "Hamirpur", "Bilaspur"],
+      "Jharkhand": ["Ranchi", "Jamshedpur", "Dhanbad", "Bokaro Steel City", "Deoghar", "Hazaribagh", "Giridih"],
+      "Karnataka": ["Bengaluru", "Mysuru", "Hubballi-Dharwad", "Mangaluru", "Belagavi", "Davanagere", "Ballari", "Vijayapura", "Kalaburagi", "Shivamogga"],
+      "Kerala": ["Thiruvananthapuram", "Kochi", "Kozhikode", "Thrissur", "Kollam", "Alappuzha", "Palakkad", "Kottayam", "Kannur", "Malappuram"],
+      "Madhya Pradesh": ["Indore", "Bhopal", "Jabalpur", "Gwalior", "Ujjain", "Sagar", "Dewas", "Satna", "Ratlam", "Rewa"],
+      "Maharashtra": ["Mumbai", "Pune", "Nagpur", "Thane", "Pimpri-Chinchwad", "Nashik", "Kalyan-Dombivli", "Vasai-Virar", "Aurangabad", "Navi Mumbai", "Solapur", "Kolhapur"],
+      "Manipur": ["Imphal", "Churachandpur", "Thoubal", "Kakching"],
+      "Meghalaya": ["Shillong", "Tura", "Jowai", "Nongpoh"],
+      "Mizoram": ["Aizawl", "Lunglei", "Saiha", "Champhai"],
+      "Nagaland": ["Kohima", "Dimapur", "Mokokchung", "Wokha"],
+      "Odisha": ["Bhubaneswar", "Cuttack", "Rourkela", "Sambalpur", "Puri", "Balasore", "Berhampur", "Bhadrak"],
+      "Punjab": ["Ludhiana", "Amritsar", "Jalandhar", "Patiala", "Bathinda", "Mohali", "Hoshiarpur", "Pathankot", "Moga"],
+      "Rajasthan": ["Udaipur", "Jaipur", "Jodhpur", "Ajmer", "Kota", "Bikaner", "Alwar", "Bhilwara", "Sikar", "Sri Ganganagar", "Bharatpur", "Pali", "Jaisalmer", "Barmer"],
+      "Sikkim": ["Gangtok", "Namchi", "Geyzing", "Mangan"],
+      "Tamil Nadu": ["Chennai", "Coimbatore", "Madurai", "Tiruchirappalli", "Salem", "Tiruppur", "Erode", "Vellore", "Thoothukudi", "Tirunelveli", "Nagercoil"],
+      "Telangana": ["Hyderabad", "Warangal", "Nizamabad", "Khammam", "Karimnagar", "Ramagundam", "Mahabubnagar"],
+      "Tripura": ["Agartala", "Dharmanagar", "Udaipur", "Kailasahar"],
+      "Uttar Pradesh": ["Lucknow", "Kanpur", "Ghaziabad", "Agra", "Meerut", "Varanasi", "Prayagraj", "Bareilly", "Aligarh", "Moradabad", "Saharanpur", "Gorakhpur", "Noida", "Greater Noida", "Jhansi"],
+      "Uttarakhand": ["Dehradun", "Haridwar", "Haldwani", "Rudrapur", "Roorkee", "Kashipur", "Rishikesh"],
+      "West Bengal": ["Kolkata", "Howrah", "Darjeeling", "Siliguri", "Asansol", "Durgapur", "Bardhaman", "Malda", "Kharagpur", "Haldia"],
+      "Delhi": ["New Delhi", "Dwarka", "Rohini", "Saket", "Vasant Kunj", "Mayur Vihar", "Karol Bagh", "Laxmi Nagar"],
+      "Jammu & Kashmir": ["Srinagar", "Jammu", "Anantnag", "Baramulla", "Kathua", "Sopore"],
+      "Chandigarh": ["Chandigarh"],
+      "Puducherry": ["Puducherry", "Karaikal", "Mahe", "Yanam"]
+    };
+
+    function populateCities() {
+      const stateSel = document.getElementById('custState');
+      const citySel = document.getElementById('custCity');
+      const stateManual = document.getElementById('custStateManual');
+      const cityManual = document.getElementById('custCityManual');
+      
+      if (!stateSel || !citySel) return;
+      const selectedState = stateSel.value;
+      
+      // Reset manual text inputs
+      stateManual.style.display = 'none';
+      stateManual.required = false;
+      stateManual.value = '';
+      cityManual.style.display = 'none';
+      cityManual.required = false;
+      cityManual.value = '';
+      
+      citySel.innerHTML = '<option value="">Select City</option>';
+      
+      if (selectedState === 'Other') {
+        stateManual.style.display = 'block';
+        stateManual.required = true;
+        
+        citySel.style.display = 'none';
+        citySel.required = false;
+        cityManual.style.display = 'block';
+        cityManual.required = true;
+      } else {
+        citySel.style.display = 'block';
+        citySel.required = true;
+        
+        if (selectedState && locationData[selectedState]) {
+          locationData[selectedState].forEach(city => {
+            const opt = document.createElement('option');
+            opt.value = city;
+            opt.textContent = city;
+            citySel.appendChild(opt);
+          });
+        }
+        
+        // Add manual "Other" choice to cities
+        if (selectedState) {
+          const otherOpt = document.createElement('option');
+          otherOpt.value = 'Other';
+          otherOpt.textContent = 'Other (Type Manually)';
+          citySel.appendChild(otherOpt);
+        }
+      }
+    }
+
+    function checkCityManual() {
+      const citySel = document.getElementById('custCity');
+      const cityManual = document.getElementById('custCityManual');
+      if (!citySel || !cityManual) return;
+      
+      if (citySel.value === 'Other') {
+        cityManual.style.display = 'block';
+        cityManual.required = true;
+      } else {
+        cityManual.style.display = 'none';
+        cityManual.required = false;
+        cityManual.value = '';
+      }
+    }
+
+    window.checkCityManual = checkCityManual;
+
+    function getProductCode(p) {
+      const genderPrefix = currentGender === 'ladies' ? 'L' : 'G';
+      
+      const catMap = {
+        'suit': 'SU',
+        'blouse': 'BL',
+        'bridal-lehnga': 'LH',
+        'lehnga': 'LH',
+        'kurta': 'KU',
+        'co-ord-set': 'CO',
+        'shirt': 'SH',
+        'Printed Shirt': 'PS',
+        'printed-shirt': 'PS',
+        'sherwani': 'SW',
+        'tuxedo': 'TX'
+      };
+      
+      let catId = '';
+      let itemIndex = 1;
+      
+      const cats = productsData[currentGender].products;
+      for (let cat of Object.keys(cats)) {
+        const idx = cats[cat].findIndex(item => item.id === p.id);
+        if (idx !== -1) {
+          catId = cat;
+          itemIndex = idx + 1;
+          break;
+        }
+      }
+      
+      const catPrefix = catMap[catId] || catId.slice(0, 2).toUpperCase();
+      return `${genderPrefix}${catPrefix}${itemIndex}`;
+    }
+
+    window.populateCities = populateCities;
+    window.getProductCode = getProductCode;
+
     function imgURL(seed, w = 600, h = 800) {
       if (seed.startsWith('http://') || seed.startsWith('https://') || seed.startsWith('images/')) {
         return seed;
@@ -5065,25 +5329,19 @@
         });
       });
 
-      container.querySelectorAll('.pc-wishlist').forEach(btn => {
-        btn.addEventListener('click', (e) => {
-          e.stopPropagation();
-          btn.classList.toggle('active');
-          const icon = btn.querySelector('i');
-          icon.classList.toggle('far');
-          icon.classList.toggle('fas');
-          showToast('Added to wishlist', 'fa-heart');
-        });
-      });
     }
 
     function renderProductCard(p) {
+      const isWishlisted = wishlist.includes(p.id);
+      const prodCode = getProductCode(p);
       return `
     <article class="product-card" data-pid="${p.id}">
       <div class="pc-image">
         <img src="${imgURL(p.images[0])}" alt="${p.name}" loading="lazy">
-        <span class="pc-badge">${p.work.split(' ')[0]}</span>
-        <button class="pc-wishlist" aria-label="Add to wishlist"><i class="far fa-heart"></i></button>
+        <span class="pc-badge">${prodCode}</span>
+        <button class="pc-wishlist ${isWishlisted ? 'active' : ''}" aria-label="Add to wishlist" onclick="event.stopPropagation(); toggleWishlist('${p.id}')">
+          <i class="${isWishlisted ? 'fas' : 'far'} fa-heart"></i>
+        </button>
       </div>
       <div class="pc-info">
         <h3 class="pc-name">${p.name}</h3>
@@ -5171,7 +5429,7 @@
       </div>
     </div>
     <div class="drawer-info">
-      <span class="drawer-badge">${p.work}</span>
+      <span class="drawer-badge">${getProductCode(p)} &middot; ${p.work}</span>
       <h2 class="drawer-name">${p.name}</h2>
       <p class="drawer-subtitle">${p.subtitle}</p>
       <div class="drawer-price">
@@ -5422,7 +5680,7 @@
           <img src="${imgURL(item.images[0], 200, 250)}" alt="${item.name}">
         </div>
         <div class="cart-item-info">
-          <div class="cart-item-name">${item.name}</div>
+          <div class="cart-item-name">${item.name} <span style="font-size: 11px; color: var(--accent); margin-left: 6px; font-weight: 700;">[${getProductCode(item)}]</span></div>
           <div class="cart-item-sub">${item.subtitle}</div>
           <div class="cart-item-size">
             ${['S', 'M', 'L', 'XL', 'XXL', 'XXX'].map(s =>
@@ -5497,6 +5755,14 @@
 
       updateContactActions();
 
+      // Reset payment mode to UPI by default
+      selectedPayment = 'upi';
+      document.querySelectorAll('.pay-opt').forEach(o => {
+        if (o.dataset.pay === 'upi') o.classList.add('active');
+        else o.classList.remove('active');
+      });
+      updateUpiDetails();
+
       document.getElementById('checkoutModal').classList.add('active');
       document.body.classList.add('no-scroll');
     }
@@ -5525,7 +5791,41 @@
       document.querySelectorAll('.pay-opt').forEach(o => o.classList.remove('active'));
       opt.classList.add('active');
       selectedPayment = opt.dataset.pay;
+      updateUpiDetails();
     });
+
+    function updateUpiDetails() {
+      const container = document.getElementById('upiDetailsContainer');
+      if (!container) return;
+      
+      if (selectedPayment === 'upi') {
+        container.style.display = 'block';
+        
+        // Calculate amount
+        const total = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+        document.getElementById('upiAmountLabel').innerText = `₹${total.toLocaleString('en-IN')}`;
+        
+        // Determine UPI ID based on active collection
+        const upiId = currentGender === 'ladies' ? '9460800107@ybl' : '9460794876@ybl';
+        const merchantName = currentGender === 'ladies' ? 'New Latest Tailors' : 'Latest Tailor';
+        
+        // Generate UPI URL
+        const upiUrl = `upi://pay?pa=${upiId}&pn=${encodeURIComponent(merchantName)}&am=${total}&cu=INR&tn=CustomFittingOrder`;
+        
+        // Update deep links
+        document.getElementById('gpayDeepLink').href = upiUrl;
+        document.getElementById('phonepeDeepLink').href = upiUrl;
+        document.getElementById('paytmDeepLink').href = upiUrl;
+        
+        // Update QR code image using free qrserver API
+        const qrImg = document.getElementById('upiQrImg');
+        if (qrImg) {
+          qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(upiUrl)}`;
+        }
+      } else {
+        container.style.display = 'none';
+      }
+    }
 
     function handlePhotoUpload(event) {
       const file = event.target.files[0];
@@ -5540,13 +5840,25 @@
       reader.readAsDataURL(file);
     }
 
-    function placeOrder() {
+    async function placeOrder() {
       const name = document.getElementById('custName').value.trim();
       const mobile = document.getElementById('custMobile').value.trim();
-      const address = document.getElementById('custAddress').value.trim();
+      
+      let state = document.getElementById('custState').value;
+      if (state === 'Other') {
+        state = document.getElementById('custStateManual').value.trim();
+      }
+      
+      let city = document.getElementById('custCity').value;
+      if (city === 'Other' || !city) {
+        city = document.getElementById('custCityManual').value.trim();
+      }
+      
+      const street = document.getElementById('custStreet').value.trim();
+      const zip = document.getElementById('custZip').value.trim();
       const date = document.getElementById('custDate').value;
 
-      if (!name || !mobile || !address || !date) {
+      if (!name || !mobile || !state || !city || !street || !zip || !date) {
         showToast('Please fill all required fields', 'fa-exclamation-circle');
         return;
       }
@@ -5556,42 +5868,81 @@
       const orderId = 'NLT' + Date.now().toString().slice(-8);
       const payLabel = { upi: 'UPI / Online', shop: 'Pay at Shop', cod: 'Pay on Delivery' }[selectedPayment];
       const te = document.getElementById('teValue').textContent;
+      const fullAddress = `${street}, ${city}, ${state} - ${zip}`;
 
-      document.getElementById('confirmationDetails').innerHTML = `
-    <div class="confirmation-order-row">
-      <span>Order ID</span><span>${orderId}</span>
-    </div>
-    <div class="confirmation-order-row">
-      <span>Items</span><span>${items} piece(s)</span>
-    </div>
-    <div class="confirmation-order-row">
-      <span>Total</span><span>₹${total.toLocaleString('en-IN')}</span>
-    </div>
-    <div class="confirmation-order-row">
-      <span>Payment</span><span>${payLabel}</span>
-    </div>
-    <div class="confirmation-order-row">
-      <span>Tailoring</span><span>${te}</span>
-    </div>
-    <div class="confirmation-order-row">
-      <span>Function Date</span><span>${new Date(date).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}</span>
-    </div>
-  `;
+      // Upload reference photo if selected
+      let photoUrl = '';
+      if (uploadedPhoto) {
+        showToast('Uploading measurement photo...', 'fa-spinner');
+        try {
+          const res = await fetch('/upload', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ image: uploadedPhoto })
+          });
+          const data = await res.json();
+          if (data && data.success) {
+            photoUrl = window.location.origin + data.url;
+          }
+        } catch (err) {
+          console.error('Photo upload failed:', err);
+        }
+      }
 
-      const waMsg = encodeURIComponent(
-        `Hello, I just placed order ${orderId} for ${items} item(s) totaling ₹${total.toLocaleString('en-IN')}. Payment: ${payLabel}. Function date: ${date}. Please confirm.`
-      );
-      document.getElementById('confirmWhatsapp').href = `https://wa.me/${contacts[currentGender].phone}?text=${waMsg}`;
+      // Compile itemized receipt for WhatsApp
+      let itemsListStr = '';
+      cart.forEach((item, index) => {
+        const prodCode = getProductCode(item);
+        itemsListStr += `${index + 1}. *${item.name}* [${prodCode}]\n   📏 Size: ${item.size}\n   🔢 Qty: ${item.qty}\n   💰 Price: ₹${(item.price * item.qty).toLocaleString('en-IN')}\n\n`;
+      });
+
+      let photoStatus = 'No';
+      if (uploadedPhoto) {
+        photoStatus = photoUrl ? `Yes (Click to view: ${photoUrl})` : 'Yes (Attached on client device)';
+      }
+
+      const messageText = `📢 *NEW ORDER FROM ONLINE STORE* 📢\n\n` +
+                          `✨ *CUSTOMER ORDER RECEIPT* ✨\n` +
+                          `=================================\n` +
+                          `📦 *Order ID:* #${orderId}\n` +
+                          `👤 *Customer Name:* ${name}\n` +
+                          `📞 *Mobile:* ${mobile}\n` +
+                          `📍 *Address:* ${fullAddress}\n` +
+                          `📅 *Function Date:* ${new Date(date).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}\n` +
+                          `🧵 *Tailoring Mode:* ${te}\n` +
+                          `💳 *Payment Method:* ${payLabel}\n` +
+                          `=================================\n\n` +
+                          `🛒 *ORDER ITEMS:*\n\n${itemsListStr}` +
+                          `=================================\n` +
+                          `📸 *Reference Photo:* ${photoStatus}\n` +
+                          `💰 *TOTAL AMOUNT:* ₹${total.toLocaleString('en-IN')}\n` +
+                          `=================================\n\n` +
+                          `Thank you for choosing New Latest Tailors! We will confirm your fitting soon.`;
+
+      const waMsg = encodeURIComponent(messageText);
+      const waUrl = `https://wa.me/${contacts[currentGender].phone}?text=${waMsg}`;
+
+      window.open(waUrl, '_blank');
 
       closeCheckout();
-      document.getElementById('confirmationModal').classList.add('active');
+      showToast('Order details sent to WhatsApp!', 'fa-check-circle');
 
+      // Reset cart
       cart = [];
       updateCartCount();
 
+      // Reset input fields
       document.getElementById('custName').value = '';
       document.getElementById('custMobile').value = '';
-      document.getElementById('custAddress').value = '';
+      document.getElementById('custState').value = '';
+      document.getElementById('custStateManual').value = '';
+      document.getElementById('custStateManual').style.display = 'none';
+      document.getElementById('custCity').style.display = 'block';
+      document.getElementById('custCity').innerHTML = '<option value="">Select City</option>';
+      document.getElementById('custCityManual').value = '';
+      document.getElementById('custCityManual').style.display = 'none';
+      document.getElementById('custStreet').value = '';
+      document.getElementById('custZip').value = '';
       document.getElementById('custDate').value = '';
       document.getElementById('uploadPreview').classList.remove('active');
       uploadedPhoto = null;
@@ -5725,6 +6076,107 @@
       }
     }
 
+    // ============ WISHLIST ============
+    function toggleWishlist(pid) {
+      const idx = wishlist.indexOf(pid);
+      if (idx === -1) {
+        wishlist.push(pid);
+        showToast('Added to wishlist', 'fa-heart');
+        openWishlist();
+      } else {
+        wishlist.splice(idx, 1);
+        showToast('Removed from wishlist', 'fa-heart');
+      }
+      localStorage.setItem('nt_wishlist', JSON.stringify(wishlist));
+      updateWishlistUI();
+      renderProducts();
+    }
+
+    function openWishlist() {
+      const overlay = document.getElementById('wishlistOverlay');
+      const drawer = document.getElementById('wishlistDrawer');
+      if (overlay) overlay.classList.add('active');
+      if (drawer) drawer.classList.add('active');
+      updateWishlistUI();
+    }
+
+    function closeWishlist() {
+      const overlay = document.getElementById('wishlistOverlay');
+      const drawer = document.getElementById('wishlistDrawer');
+      if (overlay) overlay.classList.remove('active');
+      if (drawer) drawer.classList.remove('active');
+    }
+
+    function updateWishlistUI() {
+      const body = document.getElementById('wishlistBody');
+      const countBadge = document.getElementById('wishlistCount');
+      if (!body) return;
+
+      // Update header count badge
+      if (countBadge) {
+        if (wishlist.length > 0) {
+          countBadge.innerText = wishlist.length;
+          countBadge.style.display = 'flex';
+        } else {
+          countBadge.style.display = 'none';
+        }
+      }
+
+      if (wishlist.length === 0) {
+        body.innerHTML = `
+          <div class="cart-empty" style="padding: 60px 24px; text-align: center;">
+            <div style="font-size: 48px; color: var(--muted); margin-bottom: 16px;"><i class="far fa-heart"></i></div>
+            <h4 style="font-size: 16px; font-weight: 600; color: var(--ink); margin-bottom: 8px;">Your wishlist is empty</h4>
+            <p style="font-size: 13px; color: var(--muted); max-width: 240px; margin: 0 auto;">Save your favorite designs here to access them anytime.</p>
+          </div>
+        `;
+        return;
+      }
+
+      let html = '';
+      wishlist.forEach(pid => {
+        const p = findProduct(pid);
+        if (!p) return;
+
+        html += `
+          <div class="cart-item" style="display: flex; gap: 14px; padding: 16px 24px; border-bottom: 1px solid var(--border);">
+            <div class="cart-item-img" style="width: 70px; height: 90px; border-radius: 8px; overflow: hidden; background: var(--bg-2); flex-shrink: 0;">
+              <img src="${imgURL(p.images[0])}" alt="${p.name}" style="width: 100%; height: 100%; object-fit: cover;">
+            </div>
+            <div class="cart-item-info" style="flex: 1; display: flex; flex-direction: column; justify-content: space-between;">
+              <div>
+                <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 8px;">
+                  <h4 style="font-size: 14px; font-weight: 600; color: var(--ink); margin: 0;">${p.name}</h4>
+                  <button onclick="toggleWishlist('${p.id}')" style="background: transparent; border: none; color: var(--muted-2); cursor: pointer; font-size: 13px; padding: 2px;">
+                    <i class="fas fa-trash-alt"></i>
+                  </button>
+                </div>
+                <p style="font-size: 12px; color: var(--muted); margin: 4px 0 0;">${p.subtitle}</p>
+              </div>
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 8px;">
+                <div style="font-family: 'Fraunces', serif; color: var(--accent); font-size: 15px; font-weight: 600;">₹${p.price.toLocaleString('en-IN')}</div>
+                <button class="btn btn-primary" onclick="addFromWishlistToCart('${p.id}')" style="padding: 6px 12px; font-size: 11px; font-weight: 700; border-radius: 100px; display: flex; align-items: center; gap: 6px;">
+                  <i class="fas fa-shopping-bag"></i> Add to Bag
+                </button>
+              </div>
+            </div>
+          </div>
+        `;
+      });
+      body.innerHTML = html;
+    }
+
+    function addFromWishlistToCart(pid) {
+      addToCart(pid);
+      closeWishlist();
+      openCart();
+    }
+
+    window.toggleWishlist = toggleWishlist;
+    window.openWishlist = openWishlist;
+    window.closeWishlist = closeWishlist;
+    window.addFromWishlistToCart = addFromWishlistToCart;
+
     // ============ INIT ============
     renderHero();
     renderCategories();
@@ -5732,6 +6184,7 @@
     renderTeam();
     updateContactActions();
     initHeroSlideshow();
+    updateWishlistUI();
   </script>
 </body>
 

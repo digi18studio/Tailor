@@ -53,6 +53,46 @@ const server = http.createServer((req, res) => {
     return;
   }
 
+  // Handle POST upload request for measurement photos
+  if (req.method === 'POST' && decodedUrl === '/upload') {
+    let body = '';
+    req.on('data', chunk => {
+      body += chunk;
+    });
+    req.on('end', () => {
+      try {
+        const payload = JSON.parse(body);
+        if (!payload.image) {
+          res.writeHead(400, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ success: false, error: 'No image data provided' }));
+          return;
+        }
+        const base64Data = payload.image.replace(/^data:image\/\w+;base64,/, "");
+        const match = payload.image.match(/^data:image\/(\w+);base64,/);
+        const ext = match ? match[1] : 'png';
+        const filename = `measurement_${Date.now()}.${ext}`;
+        const uploadDir = path.join(__dirname, 'uploads');
+        
+        if (!fs.existsSync(uploadDir)) {
+          fs.mkdirSync(uploadDir);
+        }
+        
+        fs.writeFileSync(path.join(uploadDir, filename), base64Data, { encoding: 'base64' });
+        
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ 
+          success: true, 
+          url: `/uploads/${filename}` 
+        }));
+      } catch (err) {
+        console.error('Upload error:', err);
+        res.writeHead(500, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ success: false, error: err.message }));
+      }
+    });
+    return;
+  }
+
   let filePath = path.join(__dirname, decodedUrl === '/' ? 'Index.html' : decodedUrl);
   
   // Prevent directory traversal
